@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "com.netflix_plus_plus.cms"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.netflix_plus_plus.cms"

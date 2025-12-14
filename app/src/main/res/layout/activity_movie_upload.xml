@@ -1,0 +1,238 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#141414"
+    android:fillViewport="true"
+    tools:context=".MovieUploadActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload a Movie"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="#E50914"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Video File Selection -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Video File *"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:layout_marginBottom="8dp" />
+
+        <Button
+            android:id="@+id/btnSelectVideo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select Video File"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#E50914"
+            android:textAllCaps="false"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/tvSelectedFile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No file selected"
+            android:textColor="#808080"
+            android:textSize="12sp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Title Input -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Title * "
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/etTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter movie title"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#808080"
+            android:backgroundTint="#808080"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Description Input -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description *"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/etDescription"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:hint="Enter movie description"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#808080"
+            android:backgroundTint="#808080"
+            android:padding="12dp"
+            android:gravity="top"
+            android:inputType="textMultiLine"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Director Input -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Director *"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/etDirector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter director name"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#808080"
+            android:backgroundTint="#808080"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Release Year Input -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Release Year *"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Duration Input -->
+        <EditText
+            android:id="@+id/etReleaseYear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#808080"
+            android:hint="Enter release year"
+            android:inputType="number"
+            android:padding="12dp"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#808080" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Duration"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/etDuration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:hint="Enter duration in minutes"
+            android:textColorHint="#808080"
+            android:backgroundTint="#808080"
+            android:padding="12dp"
+            android:inputType="number"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Rating Input -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rating (0-5)"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/etRating"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#808080"
+            android:backgroundTint="#808080"
+            android:hint="Enter your rating to the movie"
+            android:padding="12dp"
+            android:inputType="numberDecimal"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Classification Input -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Classification"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:layout_marginBottom="8dp" />
+
+        <Spinner
+            android:id="@+id/spinnerClassification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:padding="12dp"
+            android:backgroundTint="#808080"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Progress Bar -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:id="@+id/tvUploadStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone" />
+
+        <!-- Upload Button -->
+        <Button
+            android:id="@+id/btnUpload"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Upload Movie"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#E50914"
+            android:textSize="16sp"
+            android:textAllCaps="false"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="* Required fields\n\nNote: The backend will automatically generate a 360p version of your video."
+            android:textColor="#808080"
+            android:textSize="12sp"
+            android:layout_gravity="center"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,19 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center"
+    android:background="#141414"
     tools:context=".MainActivity">
 
+    <!-- App Title -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="Netflix++ CMS"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:textColor="#E50914"
+        android:layout_marginBottom="48dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Movie Management Section -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Movie Management"
+        android:textSize="20sp"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/buttonUploadMovie"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Upload Movie"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#E50914"
+        android:layout_marginBottom="12dp"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/buttonViewMovies"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="View &amp; Delete Movies"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#E50914"
+        android:layout_marginBottom="32dp"
+        android:textSize="16sp"/>
+
+    <!-- User Management Section -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User Management"
+        android:textSize="20sp"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/buttonCreateUser"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Create User"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#E50914"
+        android:layout_marginBottom="12dp"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/buttonViewUsers"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="View &amp; Delete Users"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#E50914"
+        android:textSize="16sp"/>
+
+</LinearLayout>

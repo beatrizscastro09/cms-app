@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Cms App</string>
+
+    <!-- opcoes de classificacao dos movies -->
+    <string-array name="classification_options">
+        <item>Select Classification</item>
+        <item>L</item>
+        <item>10</item>
+        <item>12</item>
+        <item>14</item>
+        <item>16</item>
+        <item>18</item>
+    </string-array>
 </resources>

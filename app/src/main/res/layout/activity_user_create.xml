@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#141414"
+    android:fillViewport="true"
+    tools:context=".UserCreateActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center">
+
+        <!-- Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create User"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="#E50914"
+            android:layout_marginBottom="32dp" />
+
+        <!-- Username Input -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Username *"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:layout_gravity="start"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/etUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter username"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#808080"
+            android:backgroundTint="#808080"
+            android:padding="12dp"
+            android:inputType="text"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Email Input -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email *"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:layout_gravity="start"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter email address"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#808080"
+            android:backgroundTint="#808080"
+            android:padding="12dp"
+            android:inputType="textEmailAddress"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Password Input -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Password *"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:layout_gravity="start"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter password"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#808080"
+            android:backgroundTint="#808080"
+            android:padding="12dp"
+            android:inputType="textPassword"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Progress Bar (hidden by default) -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Status Text -->
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone" />
+
+        <!-- Create Button -->
+        <Button
+            android:id="@+id/btnCreateUser"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Create User"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#E50914"
+            android:textSize="16sp"
+            android:textAllCaps="false"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Note -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="* Required fields\n\nUsers will be created as 'Client' role by default."
+            android:textColor="#808080"
+            android:textSize="12sp"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ceca6d98-ab30-4805-acbb-78d20b7a349b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../.idea/deviceManager.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gradle/8.13/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../.gradle/8.13/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gradle/8.13/checksums/md5-checksums.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gradle/8.13/checksums/sha1-checksums.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gradle/8.13/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../.gradle/8.13/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gradle/8.13/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../.gradle/8.13/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gradle/8.13/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../.gradle/8.13/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gradle/8.13/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../.gradle/8.13/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gradle/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../.gradle/config.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/../.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gradle/nb-cache/cms-app-297222593/project-info.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gradle/nb-cache/subprojects.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gradle/nb-cache/trust/0CDB09D568CA43708BD14EE54CFD3B870A3886CC6AA0E110416BA660CC5E06E6" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/caches/deviceStreaming.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/deploymentTargetSelector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/deploymentTargetSelector.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/netflix_plus_plus/cms/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/netflix_plus_plus/cms/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/netflix_plus_plus/cms/MovieListActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/netflix_plus_plus/cms/MovieListActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/netflix_plus_plus/cms/MovieUploadActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/netflix_plus_plus/cms/MovieUploadActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/netflix_plus_plus/cms/UserCreateActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/netflix_plus_plus/cms/UserCreateActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/netflix_plus_plus/cms/UserListActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/netflix_plus_plus/cms/UserListActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/netflix_plus_plus/cms/adapters/MovieAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/netflix_plus_plus/cms/adapters/MovieAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/netflix_plus_plus/cms/adapters/UserAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/netflix_plus_plus/cms/adapters/UserAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/netflix_plus_plus/cms/api/ApiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/netflix_plus_plus/cms/api/ApiService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/netflix_plus_plus/cms/api/RetrofitClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/netflix_plus_plus/cms/api/RetrofitClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/netflix_plus_plus/cms/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/netflix_plus_plus/cms/models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/netflix_plus_plus/cms/utils/FileUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/netflix_plus_plus/cms/utils/FileUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_movie_list.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_movie_list.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_movie_upload.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_movie_upload.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_user_create.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_user_create.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_user_list.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_user_list.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/item_movie.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/item_movie.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/item_user.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/item_user.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/reports/problems/problems-report.html" beforeDir="false" afterPath="$PROJECT_DIR$/../build/reports/problems/problems-report.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "master",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.27397.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.27397.103" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ceca6d98-ab30-4805-acbb-78d20b7a349b" name="Changes" comment="" />
+      <created>1765711422174</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1765711422174</updated>
+      <workItem from="1765711425460" duration="221000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

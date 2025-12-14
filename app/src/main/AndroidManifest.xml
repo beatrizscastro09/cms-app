@@ -2,6 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- permissao internet-->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- permissao de armazenamento-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+
+
+    <!-- android 13 -->
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -10,9 +22,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.CmsApp">
+        android:theme="@style/Theme.CmsApp"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
+
+        <!--Main Activity-->
         <activity
-            android:name=".MainActivity"
+            android:name="com.netflix_plus_plus.cms.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,6 +36,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- atividades dos filmes -->
+        <activity
+            android:name="com.netflix_plus_plus.cms.MovieUploadActivity"
+            android:exported="false" />
+
+        <activity
+            android:name="com.netflix_plus_plus.cms.MovieListActivity"
+            android:exported="false" />
+
+
+        <!-- atividades dos users  -->
+        <activity
+            android:name="com.netflix_plus_plus.cms.UserCreateActivity"
+            android:exported="false" />
+
+        <activity
+            android:name="com.netflix_plus_plus.cms.UserListActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>
