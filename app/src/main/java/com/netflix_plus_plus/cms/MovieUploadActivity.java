@@ -24,6 +24,8 @@ import com.netflix_plus_plus.cms.models.ApiResponse;
 import com.netflix_plus_plus.cms.utils.FileUtils;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -35,20 +37,30 @@ import retrofit2.Response;
 public class MovieUploadActivity extends AppCompatActivity {
 
     // UI Elements
-    private Button btnSelectVideo;
+    private Button btnSelectVideo, btnSelectCoverImage, btnSelectSliderImage;
     private Button btnUpload;
     private EditText etTitle, etDescription, etDirector, etReleaseYear;
     private EditText etDuration, etRating;
-    private Spinner spinnerClassification;  // Changed from EditText to Spinner
-    private TextView tvSelectedFile, tvUploadStatus;
+    private Spinner spinnerClassification;
+    private TextView tvSelectedFile, tvSelectedCoverImage, tvSelectedSliderImage;
+    private TextView tvUploadStatus;
     private ProgressBar progressBar;
 
-    // Selected file
+    // Selected files
     private Uri selectedVideoUri;
     private File selectedVideoFile;
+    private Uri selectedCoverImageUri;
+    private File selectedCoverImageFile;
+    private Uri selectedSliderImageUri;
+    private File selectedSliderImageFile;
+
+    // Track which button was clicked
+    private enum FileType { VIDEO, COVER_IMAGE, SLIDER_IMAGE }
+    private FileType currentFileType;
 
     // Activity Result Launchers
     private ActivityResultLauncher<String> filePickerLauncher;
+    private ActivityResultLauncher<String> imagePickerLauncher;
     private ActivityResultLauncher<String> permissionLauncher;
 
     @Override
@@ -71,16 +83,24 @@ public class MovieUploadActivity extends AppCompatActivity {
 
     private void initializeViews() {
         btnSelectVideo = findViewById(R.id.btnSelectVideo);
+        btnSelectCoverImage = findViewById(R.id.btnSelectCoverImage);
+        btnSelectSliderImage = findViewById(R.id.btnSelectSliderImage);
         btnUpload = findViewById(R.id.btnUpload);
+
         etTitle = findViewById(R.id.etTitle);
         etDescription = findViewById(R.id.etDescription);
         etDirector = findViewById(R.id.etDirector);
         etReleaseYear = findViewById(R.id.etReleaseYear);
         etDuration = findViewById(R.id.etDuration);
         etRating = findViewById(R.id.etRating);
+
         spinnerClassification = findViewById(R.id.spinnerClassification);
+
         tvSelectedFile = findViewById(R.id.tvSelectedFile);
+        tvSelectedCoverImage = findViewById(R.id.tvSelectedCoverImage);
+        tvSelectedSliderImage = findViewById(R.id.tvSelectedSliderImage);
         tvUploadStatus = findViewById(R.id.tvUploadStatus);
+
         progressBar = findViewById(R.id.progressBar);
     }
 
@@ -95,7 +115,7 @@ public class MovieUploadActivity extends AppCompatActivity {
     }
 
     private void initializeLaunchers() {
-        // File picker launcher
+        // Video file picker launcher
         filePickerLauncher = registerForActivityResult(
                 new ActivityResultContracts.GetContent(),
                 uri -> {
@@ -104,31 +124,63 @@ public class MovieUploadActivity extends AppCompatActivity {
                     }
                 });
 
+        // Image picker launcher
+        imagePickerLauncher = registerForActivityResult(
+                new ActivityResultContracts.GetContent(),
+                uri -> {
+                    if (uri != null) {
+                        handleSelectedImage(uri);
+                    }
+                });
+
         // Permission launcher
         permissionLauncher = registerForActivityResult(
                 new ActivityResultContracts.RequestPermission(),
                 isGranted -> {
                     if (isGranted) {
-                        openFilePicker();
+                        if (currentFileType == FileType.VIDEO) {
+                            openFilePicker();
+                        } else {
+                            openImagePicker();
+                        }
                     } else {
-                        Toast.makeText(this, "Permission denied. Cannot select video.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
     private void setClickListeners() {
-        btnSelectVideo.setOnClickListener(v -> checkPermissionAndPickFile());
+        btnSelectVideo.setOnClickListener(v -> {
+            currentFileType = FileType.VIDEO;
+            checkPermissionAndPickFile();
+        });
+
+        btnSelectCoverImage.setOnClickListener(v -> {
+            currentFileType = FileType.COVER_IMAGE;
+            checkPermissionAndPickFile();
+        });
+
+        btnSelectSliderImage.setOnClickListener(v -> {
+            currentFileType = FileType.SLIDER_IMAGE;
+            checkPermissionAndPickFile();
+        });
+
         btnUpload.setOnClickListener(v -> uploadMovie());
     }
 
     private void checkPermissionAndPickFile() {
         String permission = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-                ? Manifest.permission.READ_MEDIA_VIDEO
+                ? (currentFileType == FileType.VIDEO ?
+                Manifest.permission.READ_MEDIA_VIDEO :
+                Manifest.permission.READ_MEDIA_IMAGES)
                 : Manifest.permission.READ_EXTERNAL_STORAGE;
 
-        // Check if permission is granted
         if (ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED) {
-            openFilePicker();
+            if (currentFileType == FileType.VIDEO) {
+                openFilePicker();
+            } else {
+                openImagePicker();
+            }
         } else {
             permissionLauncher.launch(permission);
         }
@@ -138,31 +190,46 @@ public class MovieUploadActivity extends AppCompatActivity {
         filePickerLauncher.launch("video/*");
     }
 
+    private void openImagePicker() {
+        imagePickerLauncher.launch("image/*");
+    }
+
     private void handleSelectedFile(Uri uri) {
         selectedVideoUri = uri;
 
-        // Check if it's a video file
         if (!FileUtils.isVideoFile(this, uri)) {
             Toast.makeText(this, "Please select a video file", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Display file name
         String fileName = FileUtils.getFileName(this, uri);
         tvSelectedFile.setText("Selected: " + fileName);
         tvSelectedFile.setTextColor(getResources().getColor(android.R.color.white));
 
-        // Convert URI to File (for upload)
         selectedVideoFile = FileUtils.getFileFromUri(this, uri);
     }
 
+    private void handleSelectedImage(Uri uri) {
+        String fileName = FileUtils.getFileName(this, uri);
+
+        if (currentFileType == FileType.COVER_IMAGE) {
+            selectedCoverImageUri = uri;
+            selectedCoverImageFile = FileUtils.getFileFromUri(this, uri);
+            tvSelectedCoverImage.setText("✓ " + fileName);
+            tvSelectedCoverImage.setTextColor(getResources().getColor(android.R.color.white));
+        } else if (currentFileType == FileType.SLIDER_IMAGE) {
+            selectedSliderImageUri = uri;
+            selectedSliderImageFile = FileUtils.getFileFromUri(this, uri);
+            tvSelectedSliderImage.setText("✓ " + fileName);
+            tvSelectedSliderImage.setTextColor(getResources().getColor(android.R.color.white));
+        }
+    }
+
     private void uploadMovie() {
-        // Validate inputs
         if (!validateInputs()) {
             return;
         }
 
-        // Show progress
         showProgress(true);
         tvUploadStatus.setText("Uploading movie...");
 
@@ -180,79 +247,112 @@ public class MovieUploadActivity extends AppCompatActivity {
             classification = classification.substring(0, classification.indexOf("(")).trim();
         }
 
-        // Create multipart request body
-        RequestBody fileRequestBody = RequestBody.create(
-                MediaType.parse("video/*"),
-                selectedVideoFile
-        );
+        try {
+            // Create video file part
+            RequestBody fileRequestBody = RequestBody.create(
+                    MediaType.parse("video/*"),
+                    selectedVideoFile
+            );
 
-        MultipartBody.Part filePart = MultipartBody.Part.createFormData(
-                "file",
-                selectedVideoFile.getName(),
-                fileRequestBody
-        );
+            MultipartBody.Part filePart = MultipartBody.Part.createFormData(
+                    "file",
+                    selectedVideoFile.getName(),
+                    fileRequestBody
+            );
 
-        // Create form data parts
-        RequestBody titlePart = RequestBody.create(MediaType.parse("text/plain"), title);
-        RequestBody descriptionPart = RequestBody.create(MediaType.parse("text/plain"), description);
-        RequestBody directorPart = RequestBody.create(MediaType.parse("text/plain"), director);
-        RequestBody releaseYearPart = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(releaseYear));
-        RequestBody durationPart = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(duration));
-        RequestBody ratingPart = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(rating));
-        RequestBody classificationPart = RequestBody.create(MediaType.parse("text/plain"), classification);
-        RequestBody languageIdPart = RequestBody.create(MediaType.parse("text/plain"), "1"); // Default: English
+            // Create form data parts
+            RequestBody titlePart = RequestBody.create(MediaType.parse("text/plain"), title);
+            RequestBody descriptionPart = RequestBody.create(MediaType.parse("text/plain"), description);
+            RequestBody directorPart = RequestBody.create(MediaType.parse("text/plain"), director);
+            RequestBody releaseYearPart = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(releaseYear));
+            RequestBody durationPart = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(duration));
+            RequestBody ratingPart = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(rating));
+            RequestBody classificationPart = RequestBody.create(MediaType.parse("text/plain"), classification);
+            RequestBody languageIdPart = RequestBody.create(
+                    MediaType.parse("text/plain"),
+                    "eec9c9b5-d78a-11f0-ae4d-b6b8a7b9a959"  // English
+            );
 
-        // Make API call
-        Call<ApiResponse> call = RetrofitClient.getApiService().uploadMovie(
-                filePart,
-                titlePart,
-                descriptionPart,
-                directorPart,
-                releaseYearPart,
-                durationPart,
-                ratingPart,
-                classificationPart,
-                languageIdPart
-        );
+            // Create image parts (optional)
+            MultipartBody.Part coverImagePart = null;
+            if (selectedCoverImageFile != null) {
+                RequestBody coverRequestBody = RequestBody.create(
+                        MediaType.parse("image/*"),
+                        selectedCoverImageFile
+                );
+                coverImagePart = MultipartBody.Part.createFormData(
+                        "coverImage",
+                        selectedCoverImageFile.getName(),
+                        coverRequestBody
+                );
+            }
 
-        call.enqueue(new Callback<ApiResponse>() {
-            @Override
-            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
-                showProgress(false);
+            MultipartBody.Part sliderImagePart = null;
+            if (selectedSliderImageFile != null) {
+                RequestBody sliderRequestBody = RequestBody.create(
+                        MediaType.parse("image/*"),
+                        selectedSliderImageFile
+                );
+                sliderImagePart = MultipartBody.Part.createFormData(
+                        "sliderImage",
+                        selectedSliderImageFile.getName(),
+                        sliderRequestBody
+                );
+            }
 
-                if (response.isSuccessful() && response.body() != null) {
-                    ApiResponse apiResponse = response.body();
-                    Toast.makeText(MovieUploadActivity.this,
-                            "Movie uploaded successfully! 360p version will be created automatically.",
-                            Toast.LENGTH_LONG).show();
+            // Make API call
+            Call<ApiResponse> call = RetrofitClient.getApiService().uploadMovie(
+                    filePart,
+                    titlePart,
+                    descriptionPart,
+                    directorPart,
+                    releaseYearPart,
+                    durationPart,
+                    ratingPart,
+                    classificationPart,
+                    languageIdPart,
+                    coverImagePart,
+                    sliderImagePart
+            );
 
-                    // Clear form and go back
-                    finish();
-                } else {
-                    Toast.makeText(MovieUploadActivity.this,
-                            "Upload failed: " + response.message(),
-                            Toast.LENGTH_SHORT).show();
+            call.enqueue(new Callback<ApiResponse>() {
+                @Override
+                public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+                    showProgress(false);
+
+                    if (response.isSuccessful()) {
+                        Toast.makeText(MovieUploadActivity.this,
+                                "Movie uploaded successfully! 360p version will be created automatically.",
+                                Toast.LENGTH_LONG).show();
+                        finish();
+                    } else {
+                        Toast.makeText(MovieUploadActivity.this,
+                                "Upload failed: " + response.message(),
+                                Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<ApiResponse> call, Throwable t) {
-                showProgress(false);
-                Toast.makeText(MovieUploadActivity.this,
-                        "Upload error: " + t.getMessage(),
-                        Toast.LENGTH_LONG).show();
-            }
-        });
+                @Override
+                public void onFailure(Call<ApiResponse> call, Throwable t) {
+                    showProgress(false);
+                    Toast.makeText(MovieUploadActivity.this,
+                            "Upload error: " + t.getMessage(),
+                            Toast.LENGTH_LONG).show();
+                }
+            });
+
+        } catch (Exception e) {
+            showProgress(false);
+            Toast.makeText(this, "Error preparing upload: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
     private boolean validateInputs() {
-        // Check if file is selected
         if (selectedVideoFile == null) {
             Toast.makeText(this, "Please select a video file", Toast.LENGTH_SHORT).show();
             return false;
         }
 
-        // Check required text fields
         if (etTitle.getText().toString().trim().isEmpty()) {
             etTitle.setError("Title is required");
             etTitle.requestFocus();
@@ -283,7 +383,6 @@ public class MovieUploadActivity extends AppCompatActivity {
             return false;
         }
 
-        // Check if classification is selected (position 0 is "Select Classification")
         if (spinnerClassification.getSelectedItemPosition() == 0) {
             Toast.makeText(this, "Please select a classification", Toast.LENGTH_SHORT).show();
             return false;
@@ -297,5 +396,7 @@ public class MovieUploadActivity extends AppCompatActivity {
         tvUploadStatus.setVisibility(show ? View.VISIBLE : View.GONE);
         btnUpload.setEnabled(!show);
         btnSelectVideo.setEnabled(!show);
+        btnSelectCoverImage.setEnabled(!show);
+        btnSelectSliderImage.setEnabled(!show);
     }
 }

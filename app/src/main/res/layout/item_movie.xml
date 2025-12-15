@@ -25,6 +25,15 @@
             android:textStyle="bold"
             android:layout_marginBottom="4dp" />
 
+        <TextView
+            android:id="@+id/tvInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2022 • 120 min • ★ 4.5"
+            android:textColor="#808080"
+            android:textSize="12sp"
+            android:layout_marginBottom="8dp" />
+
         <!-- Director -->
         <TextView
             android:id="@+id/tvMovieDirector"
@@ -36,6 +45,7 @@
             android:layout_marginBottom="4dp" />
 
         <!-- Year and Rating Row -->
+        <!--
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -75,7 +85,7 @@
                 android:background="#333333"
                 android:padding="4dp" />
 
-        </LinearLayout>
+        </LinearLayout> -->
 
         <!-- Description -->
         <TextView

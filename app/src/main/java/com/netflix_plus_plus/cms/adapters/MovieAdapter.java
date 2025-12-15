@@ -40,21 +40,45 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
         Movie movie = movieList.get(position);
 
-        holder.tvTitle.setText(movie.getTitle());
-        holder.tvDirector.setText("Director: " + movie.getDirector());
-        holder.tvYear.setText(String.valueOf(movie.getReleaseYear()));
-        holder.tvRating.setText("★ " + movie.getRating());
-        holder.tvClassification.setText(movie.getIndicativeClassification());
+        // Title
+        holder.tvMovieTitle.setText(movie.getTitle());
 
-        // Show description or "No description"
+        // Description
         if (movie.getDescription() != null && !movie.getDescription().isEmpty()) {
-            holder.tvDescription.setText(movie.getDescription());
+            holder.tvMovieDescription.setText(movie.getDescription());
         } else {
-            holder.tvDescription.setText("No description available");
+            holder.tvMovieDescription.setText("No description available");
         }
 
-        // Delete button click
-        holder.btnDelete.setOnClickListener(v -> {
+        // Year, Duration, and Rating in one line
+        StringBuilder info = new StringBuilder();
+
+        if (movie.getReleaseYear() != null) {
+            info.append(movie.getReleaseYear());
+        }
+
+        if (movie.getDurationMinutes() != null) {
+            if (info.length() > 0) info.append(" • ");
+            info.append(movie.getDurationMinutes()).append(" min");
+        }
+
+        if (movie.getRating() != null) {
+            if (info.length() > 0) info.append(" • ");
+            info.append(String.format("⭐ %.1f", movie.getRating()));
+        }
+
+        holder.tvInfo.setText(info.toString());
+
+        // Director
+        if (movie.getDirector() != null && !movie.getDirector().isEmpty()) {
+            holder.tvMovieDirector.setText("Director: " + movie.getDirector());
+            holder.tvMovieDirector.setVisibility(View.VISIBLE);
+        } else {
+            holder.tvMovieDirector.setVisibility(View.GONE);
+        }
+
+        // Delete button
+        holder.btnDeleteMovie.setOnClickListener(v -> {
             if (listener != null) {
                 listener.onDeleteMovie(movie, holder.getAdapterPosition());
             }
@@ -66,32 +90,30 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         return movieList.size();
     }
 
-    // Remove movie from list (after successful delete)
+    // Remove movie from list after delete
     public void removeMovie(int position) {
         movieList.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, movieList.size());
     }
 
-    // Update entire list (after refresh)
+    // Update list after refresh
     public void updateMovies(List<Movie> newMovies) {
         this.movieList = newMovies;
         notifyDataSetChanged();
     }
 
     static class MovieViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTitle, tvDirector, tvYear, tvRating, tvClassification, tvDescription;
-        Button btnDelete;
+        TextView tvMovieTitle, tvMovieDescription, tvMovieDirector, tvInfo;
+        Button btnDeleteMovie;
 
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvTitle = itemView.findViewById(R.id.tvMovieTitle);
-            tvDirector = itemView.findViewById(R.id.tvMovieDirector);
-            tvYear = itemView.findViewById(R.id.tvMovieYear);
-            tvRating = itemView.findViewById(R.id.tvMovieRating);
-            tvClassification = itemView.findViewById(R.id.tvMovieClassification);
-            tvDescription = itemView.findViewById(R.id.tvMovieDescription);
-            btnDelete = itemView.findViewById(R.id.btnDeleteMovie);
+            tvMovieTitle = itemView.findViewById(R.id.tvMovieTitle);
+            tvMovieDescription = itemView.findViewById(R.id.tvMovieDescription);
+            tvMovieDirector = itemView.findViewById(R.id.tvMovieDirector);
+            tvInfo = itemView.findViewById(R.id.tvInfo);
+            btnDeleteMovie = itemView.findViewById(R.id.btnDeleteMovie);
         }
     }
 }
