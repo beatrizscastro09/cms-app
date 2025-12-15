@@ -1,6 +1,8 @@
 package com.netflix_plus_plus.cms;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -16,6 +18,7 @@ import com.netflix_plus_plus.cms.adapters.UserAdapter;
 import com.netflix_plus_plus.cms.api.RetrofitClient;
 import com.netflix_plus_plus.cms.models.ApiResponse;
 import com.netflix_plus_plus.cms.models.User;
+import com.netflix_plus_plus.cms.utils.TokenManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +29,8 @@ import retrofit2.Response;
 
 public class UserListActivity extends AppCompatActivity implements UserAdapter.OnUserActionListener {
 
+    private static final String TAG = "UserListActivity";
+
     private RecyclerView recyclerView;
     private UserAdapter adapter;
     private List<User> userList;
@@ -33,10 +38,21 @@ public class UserListActivity extends AppCompatActivity implements UserAdapter.O
     private TextView tvEmptyState;
     private Button btnRefresh;
 
+    private TokenManager tokenManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list);
+
+        tokenManager = new TokenManager(this);
+
+        // Check if logged in
+        if (!tokenManager.isLoggedIn()) {
+            Log.i(TAG, "User is not logged in");
+            navigateToLogin();
+            return;
+        }
 
         // Initialize views
         recyclerView = findViewById(R.id.recyclerViewUsers);
@@ -60,7 +76,17 @@ public class UserListActivity extends AppCompatActivity implements UserAdapter.O
     private void loadUsers() {
         showLoading(true);
 
-        Call<List<User>> call = RetrofitClient.getApiService().getAllUsers();
+
+        String authHeader = tokenManager.getAuthHeader();
+
+
+        if (authHeader == null) {
+            Toast.makeText(this, "No authentication token found", Toast.LENGTH_SHORT).show();
+            navigateToLogin();
+            return;
+        }
+
+        Call<List<User>> call = RetrofitClient.getApiService().getAllUsers(authHeader);
 
         call.enqueue(new Callback<List<User>>() {
             @Override
@@ -155,5 +181,13 @@ public class UserListActivity extends AppCompatActivity implements UserAdapter.O
     private void showEmptyState(boolean show) {
         tvEmptyState.setVisibility(show ? View.VISIBLE : View.GONE);
         recyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
+    }
+
+
+    private void navigateToLogin() {
+        Intent intent = new Intent(UserListActivity.this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }

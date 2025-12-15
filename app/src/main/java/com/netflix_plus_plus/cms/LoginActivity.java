@@ -2,6 +2,7 @@ package com.netflix_plus_plus.cms;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.netflix_plus_plus.cms.api.RetrofitClient;
 import com.netflix_plus_plus.cms.models.LoginRequest;
 import com.netflix_plus_plus.cms.models.LoginResponse;
-import com.netflix_plus_plus.cms.utils.SessionManager;
+import com.netflix_plus_plus.cms.utils.TokenManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,16 +22,20 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private static final String TAG = "LoginActivity";
+
     private EditText etEmail, etPassword;
     private Button btnLogin;
     private ProgressBar progressBar;
-    private SessionManager sessionManager;
+    //private SessionManager sessionManager;
+
+    private TokenManager tokenManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Initialize session manager
+/*        // Initialize session manager
         sessionManager = new SessionManager(this);
 
         // Check if already logged in
@@ -38,7 +43,16 @@ public class LoginActivity extends AppCompatActivity {
             // Already logged in as admin, go to MainActivity
             navigateToMain();
             return;
+        }*/
+
+        tokenManager = new TokenManager(this);
+
+        // Check if already logged in
+        if (tokenManager.isLoggedIn()) {
+            navigateToMain();
+            return;
         }
+
 
         setContentView(R.layout.activity_login);
 
@@ -64,6 +78,8 @@ public class LoginActivity extends AppCompatActivity {
 
         showProgress(true);
 
+        Log.i(TAG, "Trying to login... ");
+
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
 
@@ -76,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 showProgress(false);
 
-                if (response.isSuccessful() && response.body() != null) {
+                /*if (response.isSuccessful() && response.body() != null) {
                     LoginResponse loginResponse = response.body();
 
                     if (loginResponse.isSuccess()) {
@@ -114,7 +130,32 @@ public class LoginActivity extends AppCompatActivity {
                         errorMsg = "Invalid credentials";
                     }
                     Toast.makeText(LoginActivity.this, errorMsg, Toast.LENGTH_SHORT).show();
+                }*/
+
+                if (response.isSuccessful() && response.body() != null) {
+                    LoginResponse loginResponse = response.body();
+
+                    // Save token and user data
+                    tokenManager.saveToken(loginResponse.getToken());
+                    tokenManager.saveUserData(
+                            loginResponse.getUser().getId(),
+                            loginResponse.getUser().getUsername(),
+                            loginResponse.getUser().getEmail()
+                    );
+
+                    Log.i(TAG, "Login successful. Token: " + loginResponse.getToken());
+                    Toast.makeText(LoginActivity.this,
+                            "Welcome " + loginResponse.getUser().getUsername(),
+                            Toast.LENGTH_SHORT).show();
+
+                    navigateToMain();
+                } else {
+                    Log.e(TAG, "Login failed: " + response.code());
+                    Toast.makeText(LoginActivity.this,
+                            "Invalid email or password",
+                            Toast.LENGTH_SHORT).show();
                 }
+
             }
 
             @Override

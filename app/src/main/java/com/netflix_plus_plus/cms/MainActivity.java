@@ -23,13 +23,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         sessionManager = new SessionManager(this);
-        /*
+
         if (!sessionManager.isLoggedIn() || !sessionManager.isAdmin()){
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
             return;
-        }*/
+        }
 
         setContentView(R.layout.activity_main);
 
