@@ -7,9 +7,10 @@ public class Movie {
     private String description;
     private String director;
     private Integer releaseYear;
-    private Integer durationMinutes;  // Backend uses this field name
+    private Integer durationMinutes;
     private Double rating;
     private String indicativeClassification;
+    private String languageId;
 
     // Images
     private String coverImage;

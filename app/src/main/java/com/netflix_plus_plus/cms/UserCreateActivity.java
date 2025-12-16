@@ -1,6 +1,8 @@
 package com.netflix_plus_plus.cms;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,22 +15,34 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.netflix_plus_plus.cms.api.RetrofitClient;
 import com.netflix_plus_plus.cms.models.ApiResponse;
 import com.netflix_plus_plus.cms.models.User;
+import com.netflix_plus_plus.cms.utils.TokenManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class UserCreateActivity extends AppCompatActivity {
+    private static final String TAG = "UserCreateActivity";
 
     private EditText etUsername, etEmail, etPassword;
     private Button btnCreateUser;
     private ProgressBar progressBar;
     private TextView tvStatus;
+    private TokenManager tokenManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_create);
+
+        tokenManager = new TokenManager(this);
+
+        // Check if logged in
+        if (!tokenManager.isLoggedIn()) {
+            Log.i(TAG, "User is not logged in");
+            navigateToLogin();
+            return;
+        }
 
         // Initialize views
         initializeViews();
@@ -64,8 +78,16 @@ public class UserCreateActivity extends AppCompatActivity {
         // Create user object
         User user = new User(username, email, password);
 
+        String authHeader = tokenManager.getAuthHeader();
+
+        if (authHeader == null) {
+            Toast.makeText(this, "No authentication token found", Toast.LENGTH_SHORT).show();
+            navigateToLogin();
+            return;
+        }
+
         // Make API call
-        Call<ApiResponse> call = RetrofitClient.getApiService().createUser(user);
+        Call<ApiResponse> call = RetrofitClient.getApiService().createUser(authHeader, user);
 
         call.enqueue(new Callback<ApiResponse>() {
             @Override
@@ -161,5 +183,12 @@ public class UserCreateActivity extends AppCompatActivity {
         etUsername.setEnabled(!show);
         etEmail.setEnabled(!show);
         etPassword.setEnabled(!show);
+    }
+
+    private void navigateToLogin() {
+        Intent intent = new Intent(UserCreateActivity.this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }

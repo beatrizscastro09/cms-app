@@ -137,7 +137,9 @@ public class UserListActivity extends AppCompatActivity implements UserAdapter.O
     private void deleteUser(User user, int position) {
         showLoading(true);
 
-        Call<ApiResponse> call = RetrofitClient.getApiService().deleteUser(user.getId());
+        String authHeader = tokenManager.getAuthHeader();
+
+        Call<ApiResponse> call = RetrofitClient.getApiService().deleteUser(authHeader, user.getId());
 
         call.enqueue(new Callback<ApiResponse>() {
             @Override

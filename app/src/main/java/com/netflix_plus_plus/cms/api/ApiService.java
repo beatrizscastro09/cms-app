@@ -51,11 +51,11 @@ public interface ApiService {
 
     // ===== USERS =====
     @POST("users")
-    Call<ApiResponse> createUser(@Body User user);
+    Call<ApiResponse> createUser(@Header("Authorization") String authorization, @Body User user);
 
     @GET("users")
     Call<List<User>> getAllUsers(@Header("Authorization") String authorization);
 
     @DELETE("users/{id}")
-    Call<ApiResponse> deleteUser(@Path("id") String id);
+    Call<ApiResponse> deleteUser(@Header("Authorization") String authorization, @Path("id") String id);
 }

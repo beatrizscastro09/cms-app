@@ -7,7 +7,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.netflix_plus_plus.cms.utils.SessionManager;
+import com.netflix_plus_plus.cms.utils.TokenManager;
 
 public class MainActivity extends AppCompatActivity {
     private Button buttonUploadMovie;
@@ -15,16 +15,17 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonCreateUser;
     private Button buttonViewUsers;
     private Button buttonLogout;
-    private SessionManager sessionManager;
+    private TokenManager tokenManager;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        sessionManager = new SessionManager(this);
+        tokenManager = new TokenManager(this);
 
-        if (!sessionManager.isLoggedIn() || !sessionManager.isAdmin()){
+        if (!tokenManager.isLoggedIn()){
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 .setTitle("Logout")
                 .setMessage("Are you sure you want to logout?")
                 .setPositiveButton("Logout", (dialog, which) -> {
-                    sessionManager.logout();
+                    tokenManager.clearToken();
                     Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
